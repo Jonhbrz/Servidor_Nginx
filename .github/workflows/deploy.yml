@@ -24,3 +24,4 @@ jobs:
 
       - name: Build and Deploy
         run: mkdocs gh-deploy --force
+        working-directory: nginx-docker-docs
