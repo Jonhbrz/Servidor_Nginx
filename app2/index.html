@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JQuery - Formularios  - App 2</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h2>Ejercicio de formularios con jquery  -  App 2</h2>
+    <p>Luke Skywalker está entrenando a nuevos jedis en su academia secreta
+        en Ahch-To, y para asegurarse de que todo va bien con los nuevos
+        padawans, les ha encargado tres tareas importantes: configurar sus
+        sables de luz, elegir su rol en la misión secreta, y finalmente
+        enviar
+        su informe de estado al consejo jedi.
+    </p>
+
+    <!-- Formulario 1 -->
+    <form id="lightsaber-form">
+        <h2>Configura tu sable de luz</h2>
+        <label for="saber-color">Color del sable:</label>
+        <input type="text" id="saber-color" name="color"><br><br>
+
+        <label for="saber-type">Tipo de sable:</label>
+        <select id="saber-type">
+            <option value="single">Sable simple</option>
+            <option value="double">Sable doble</option>
+            <option value="crossguard">Sable con empuñadura cruzada</option>
+        </select><br><br>
+
+        <label for="saber-image">Sube una imagen de tu sable:</label>
+        <input type="file" id="saber-image"><br><br>
+
+        <input type="submit" value="Guardar sable">
+        <input type="reset" value="Restablecer formulario">
+    </form>
+
+    <!-- Formulario 2 -->
+    <form id="mission-role-form">
+        <h2>Elige tu rol en la misión secreta</h2>
+        <label for="padawan-name">Nombre de Padawan:</label>
+        <input type="text" id="padawan-name"><br><br>
+
+        <label for="force-side">Elige tu afiliación a la Fuerza:</label>
+        <input type="radio" name="force-side" value="light"> Lado luminoso
+        <input type="radio" name="force-side" value="dark"> Lado oscuro<br><br>
+
+        <label>Selecciona tu rol:</label><br>
+        <input type="checkbox" id="scout" name="role" value="scout"> Explorador<br>
+        <input type="checkbox" id="warrior" name="role" value="warrior"> Guerrero<br>
+        <input type="checkbox" id="healer" name="role" value="healer"> Sanador<br><br>
+
+        <button type="button" id="assign-role">Asignar rol</button>
+    </form>
+
+    <!-- Formulario 3 -->
+    <form id="status-report-form">
+        <h2>Informe de estado al consejo Jedi</h2>
+        <label for="report-content">Contenido del informe:</label>
+        <textarea id="report-content"></textarea><br><br>
+
+        <label for="completed-training">¿Has completado tu entrenamiento?</label>
+        <input type="checkbox" id="completed-training"><br><br>
+
+        <input type="submit" value="Enviar informe">
+    </form>
+
+    <!-- jQuery primero -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <!-- Tu código TS compilado a JS como módulo -->
+    <script type="module" src="dist/main.js"></script>
+</body>
+</html>

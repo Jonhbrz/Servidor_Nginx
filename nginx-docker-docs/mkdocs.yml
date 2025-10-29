@@ -1,0 +1,10 @@
+site_name: Nginx Docker Docs
+site_description: Documentación del Servidor Nginx en Docker
+site_author: Jonathan
+theme:
+  name: darkly
+nav:
+  - Inicio: index.md
+  - Instalación: instalacion.md
+  - Configuración: configuracion.md
+  - Múltiples Apps: apps-multiples.md
