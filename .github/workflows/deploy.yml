@@ -1,9 +1,12 @@
-name: Deploy MkDocs
+name: Deploy MkDocs to GitHub Pages
 
 on:
   push:
     branches:
-      - main  # Cada vez que hagas push a main, se ejecuta
+      - main  # o 'master' si tu rama principal se llama así
+
+permissions:
+  contents: write  # necesario para que pueda crear/actualizar gh-pages
 
 jobs:
   deploy:
@@ -11,17 +14,25 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.x'
 
-      - name: Install MkDocs and dependencies
+      - name: Install dependencies
         run: |
-          pip install mkdocs mkdocs-material mkdocs-bootswatch
+          pip install mkdocs mkdocs-bootswatch ghp-import
+
+      - name: Set GitHub token for gh-deploy
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          export GITHUB_TOKEN=${{ secrets.GH_TOKEN }}
 
       - name: Build and Deploy
-        run: mkdocs gh-deploy --force
+        run: mkdocs gh-deploy --force --remote-name origin
         working-directory: nginx-docker-docs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
