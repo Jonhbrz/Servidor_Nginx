@@ -1,5 +1,6 @@
 site_name: Nginx Docker Docs
 site_description: Documentación del Servidor Nginx en Docker
+site_url: https://jonhbrz.github.io/Servidor_Nginx/
 site_author: Jonathan
 theme:
   name: darkly
