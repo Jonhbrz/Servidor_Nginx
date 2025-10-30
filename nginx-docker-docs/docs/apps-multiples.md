@@ -107,6 +107,9 @@ CMD ["nginx", "-g", "daemon off;"]
 docker build -t sw-nginx .
 docker run -d -p 8080:80 -p 9090:81 --name sw-nginx sw-nginx
 ```
+<p align="center">
+  <img src="img/cambio_volumenes.png" alt="Cambio de volúmenes" width="80%">
+</p>
 
 Esto hará que:
 

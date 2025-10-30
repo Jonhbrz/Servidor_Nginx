@@ -49,6 +49,10 @@ docker build -t sw-nginx .
 
 Esto creará una imagen llamada **sw-nginx** basada en Ubuntu con Nginx instalado.
 
+<p align="center">
+  <img src="img/install.nginx.png" alt="Instalación de Nginx en Docker" width="80%">
+</p>
+
 ---
 
 ## 3️. Crear y ejecutar el contenedor
