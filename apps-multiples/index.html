@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="Jonathan">
+        <link rel="canonical" href="https://jonhbrz.github.io/Servidor_Nginx/apps-multiples/">
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Múltiples Apps - Nginx Docker Docs</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../css/brands.min.css" rel="stylesheet">
+        <link href="../css/solid.min.css" rel="stylesheet">
+        <link href="../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/rainbow.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">Nginx Docker Docs</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href=".." class="nav-link">Inicio</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../instalacion/" class="nav-link">Instalación</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../configuracion/" class="nav-link">Configuración</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="./" class="nav-link active" aria-current="page">Múltiples Apps</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../configuracion/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" class="nav-link disabled">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#servir-multiples-aplicaciones-con-nginx-en-docker" class="nav-link">Servir Múltiples Aplicaciones con Nginx en Docker</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#1-estructura-del-proyecto" class="nav-link">1️. Estructura del proyecto</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#2-configurar-nginx-para-multiples-aplicaciones" class="nav-link">2️. Configurar Nginx para múltiples aplicaciones</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#3-modificar-el-dockerfile" class="nav-link">3️. Modificar el Dockerfile</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#4-construir-y-ejecutar-el-contenedor" class="nav-link">4️. Construir y ejecutar el contenedor</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#5-verificar-las-aplicaciones" class="nav-link">5️. Verificar las aplicaciones</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="servir-multiples-aplicaciones-con-nginx-en-docker">Servir Múltiples Aplicaciones con Nginx en Docker</h1>
+<p>En esta sección configuraremos <strong>Nginx</strong> dentro de un contenedor Docker para servir <strong>dos aplicaciones diferentes</strong>, cada una en un puerto distinto.</p>
+<hr />
+<h2 id="1-estructura-del-proyecto">1️. Estructura del proyecto</h2>
+<p>Supongamos que tu proyecto tiene esta estructura:</p>
+<pre><code>SERVIDOR-NGINX/
+├── app1/
+│   ├── index.html
+│   └── dist/
+│       └── main.js
+├── app2/
+│   ├── index.html
+│   └── dist/
+│       └── main.js
+├── Dockerfile
+└── nginx.conf
+</code></pre>
+<ul>
+<li><code>app1/</code> → Primera aplicación.</li>
+<li><code>app2/</code> → Segunda aplicación.</li>
+</ul>
+<hr />
+<h2 id="2-configurar-nginx-para-multiples-aplicaciones">2️. Configurar Nginx para múltiples aplicaciones</h2>
+<p>Edita tu <code>nginx.conf</code> con el siguiente contenido:</p>
+<pre><code class="language-nginx">events {}
+
+http {
+    # Aplicación 1
+    server {
+        listen 80;
+        server_name localhost;
+
+        root /var/www/app1;
+        index index.html;
+
+        location / {
+            try_files $uri $uri/ =404;
+        }
+    }
+
+    # Aplicación 2
+    server {
+        listen 81;
+        server_name localhost;
+
+        root /var/www/app2;
+        index index.html;
+
+        location / {
+            try_files $uri $uri/ =404;
+        }
+    }
+}
+</code></pre>
+<p><strong>Explicación:</strong></p>
+<ul>
+<li>Cada <code>server</code> escucha en un puerto diferente (80 para app1 y 81 para app2).</li>
+<li>Cada <code>root</code> apunta a la carpeta de la aplicación correspondiente.</li>
+<li>Esto permite escalar y servir múltiples apps desde un mismo contenedor.</li>
+</ul>
+<hr />
+<h2 id="3-modificar-el-dockerfile">3️. Modificar el Dockerfile</h2>
+<p>Actualiza tu Dockerfile para copiar ambas aplicaciones y la configuración de Nginx:</p>
+<pre><code class="language-dockerfile">FROM ubuntu:22.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update &amp;&amp; \
+    apt-get install -y nginx &amp;&amp; \
+    apt-get clean &amp;&amp; \
+    rm -rf /var/lib/apt/lists/*
+
+# Copiar las dos aplicaciones
+COPY app1 /var/www/app1
+COPY app2 /var/www/app2
+
+# Copiar la configuración de Nginx
+COPY nginx.conf /etc/nginx/nginx.conf
+
+# Exponer los puertos 80 y 81
+EXPOSE 80 81
+
+# Comando por defecto: inicia Nginx en primer plano
+CMD [&quot;nginx&quot;, &quot;-g&quot;, &quot;daemon off;&quot;]
+</code></pre>
+<hr />
+<h2 id="4-construir-y-ejecutar-el-contenedor">4️. Construir y ejecutar el contenedor</h2>
+<pre><code class="language-bash">docker build -t sw-nginx .
+docker run -d -p 8080:80 -p 9090:81 --name sw-nginx sw-nginx
+</code></pre>
+<p align="center">
+  <img src="img/cambio_volumenes_nginx.png" alt="Cambio de volúmenes" width="80%">
+</p>
+
+<p>Esto hará que:</p>
+<ul>
+<li><strong>app1</strong> se vea en <a href="http://localhost:8080">http://localhost:8080</a></li>
+<li><strong>app2</strong> se vea en <a href="http://localhost:9090">http://localhost:9090</a></li>
+</ul>
+<hr />
+<h2 id="5-verificar-las-aplicaciones">5️. Verificar las aplicaciones</h2>
+<p>Abre tu navegador y prueba ambos puertos. Cada aplicación debería cargarse con sus respectivos cambios y archivos estáticos.</p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js"></script>
+        <script src="../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
