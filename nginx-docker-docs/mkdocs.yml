@@ -9,3 +9,4 @@ nav:
   - Instalación: instalacion.md
   - Configuración: configuracion.md
   - Múltiples Apps: apps-multiples.md
+  - Certificados SSL: certificado.md
