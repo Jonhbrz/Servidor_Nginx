@@ -9,3 +9,4 @@ Incluye las secciones siguientes:
 * [Instalación de Nginx en Docker](instalacion.md)
 * [Configuración del Servidor](configuracion.md)
 * [Servir Múltiples Aplicaciones](apps-multiples.md)
+* [Certificado Autofirmado](certificado.md)
