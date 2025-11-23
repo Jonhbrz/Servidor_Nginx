@@ -204,10 +204,7 @@ CMD [&quot;nginx&quot;, &quot;-g&quot;, &quot;daemon off;&quot;]
 <pre><code class="language-bash">docker build -t sw-nginx .
 docker run -d -p 8080:80 -p 9090:81 --name sw-nginx sw-nginx
 </code></pre>
-<p align="center">
-  <img src="img/cambio_volumenes_nginx.png" alt="Cambio de volúmenes" width="80%">
-</p>
-
+<p><img alt="Cambio de Volumenes" src="../img/cambio_volumenes_nginx.png" /></p>
 <p>Esto hará que:</p>
 <ul>
 <li><strong>app1</strong> se vea en <a href="http://localhost:8080">http://localhost:8080</a></li>

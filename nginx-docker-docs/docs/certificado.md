@@ -164,6 +164,8 @@ docker run -d --name nginx-ssl -p 80:80 -p 443:443 -p 444:444 nginx-ssl
 - Aviso de certificado no confiable → esperado por ser autofirmado.  
 - Página servida correctamente por HTTPS.
 
+![Error de Certificado](img/error-https.png)
+
 ### ✔ Prueba CURL: HTTP → redirección
 
 ```bash
@@ -175,6 +177,7 @@ Salida esperada:
 ```
 HTTP/1.1 301 Moved Permanently
 ```
+![Prueba con Curlo](img/prueba-curl.png)
 
 ### ✔ Prueba CURL: HTTPS app1
 

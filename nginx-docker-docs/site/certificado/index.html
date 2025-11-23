@@ -248,12 +248,14 @@ apt-get install -y nginx openssl
 <li>Aviso de certificado no confiable → esperado por ser autofirmado.  </li>
 <li>Página servida correctamente por HTTPS.</li>
 </ul>
+<p><img alt="Error de Certificado" src="../img/error-https.png" /></p>
 <h3 id="prueba-curl-http-redireccion">✔ Prueba CURL: HTTP → redirección</h3>
 <pre><code class="language-bash">curl -I http://localhost
 </code></pre>
 <p>Salida esperada:</p>
 <pre><code>HTTP/1.1 301 Moved Permanently
 </code></pre>
+<p><img alt="Prueba con Curlo" src="../img/prueba-curl.png" /></p>
 <h3 id="prueba-curl-https-app1">✔ Prueba CURL: HTTPS app1</h3>
 <pre><code class="language-bash">curl -kI https://localhost
 </code></pre>
